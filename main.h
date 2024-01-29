@@ -62,7 +62,6 @@ int _printf(const char *format, ...)
 	}
 	va_end(args);
 	write(1, str, j);
-	free(str);
 	return (j);
 }
 #endif
