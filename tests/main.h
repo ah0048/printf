@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
 int _printf(const char *format, ...);
 /**
  * _printf - prints name
@@ -13,11 +15,13 @@ int _printf(const char *format, ...)
 {
 	int i = 0, j = 0, z = 0;
 
-	char str[1024];
+	char *str;
 
 	char *temp;
 
 	va_list args;
+
+	str = (char *)malloc((vsnprintf(NULL, 0, format, args)) + 1);
 
 	va_start(args, format);
 
@@ -60,6 +64,7 @@ int _printf(const char *format, ...)
 	}
 	va_end(args);
 	write(1, str, j);
+	free(str);
 	return (j);
 }
 #endif
