@@ -30,21 +30,21 @@ int _printf(const char *format, ...)
 			j++;
 			continue;
 		}
-		else if (format[i] = '%' && format[i + 1] = 'c')
+		else if (format[i] == '%' && format[i + 1] == 'c')
 		{
 			str[j] = va_arg(args, int);
 			j++;
 			i = i + 2;
 			continue;
 		}
-		else if (format[i] = '%' && format[i + 1] = '%')
+		else if (format[i] == '%' && format[i + 1] == '%')
 		{
 			str[j] = '%';
 			j++;
 			i = i + 2;
 			continue;
 		}
-		else if (format[i] = '%' && format[i + 1] = 's')
+		else if (format[i] == '%' && format[i + 1] == 's')
 		{
 			temp = va_arg(args, char *);
 			while (temp[z])
