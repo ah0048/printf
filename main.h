@@ -15,13 +15,11 @@ int _printf(const char *format, ...)
 {
 	int i = 0, j = 0, z = 0;
 
-	char *str;
+	char str[1024];
 
 	char *temp;
 
 	va_list args;
-
-	str = (char *)malloc((vsnprintf(NULL, 0, format, args)) + 1);
 
 	va_start(args, format);
 
