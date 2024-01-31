@@ -10,7 +10,7 @@ int _printf(const char *format, ...);
  */
 int _printf(const char *format, ...)
 {
-	int i = 0, count = 0;
+	int j, i = 0, count = 0;
 
 	va_list args;
 
@@ -44,6 +44,21 @@ int _printf(const char *format, ...)
 			{
 				putchar('%');
 				count++;
+				break;
+			}
+		case 'd':
+		case 'i':
+			{
+				int num = va_arg(args, int);
+
+				char str[12];
+
+				sprintf(str, "%d", num);
+				for (j = 0; str[j] != '\0'; j++)
+				{
+					putchar(str[j]);
+					count++;
+				}
 				break;
 			}
 				default:
