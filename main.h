@@ -1,10 +1,7 @@
 #ifndef pragma
 #define pragma
-#include <unistd.h>
-#include <string.h>
 #include <stdarg.h>
 #include <stdio.h>
-#include <stdlib.h>
 int _printf(const char *format, ...);
 /**
  * _printf - prints name
@@ -13,55 +10,54 @@ int _printf(const char *format, ...);
  */
 int _printf(const char *format, ...)
 {
-	int i = 0, j = 0, z = 0;
-
-	char str[1024];
-
-	char *temp;
+	int i = 0, count = 0;
 
 	va_list args;
 
 	va_start(args, format);
-
-	while (format[i])
+	while (format[i] != '\0')
 	{
-		if (format[i] != '%')
+	if (format[i] == '%')
+	{
+		switch (format[i++])
 		{
-			str[j] = format[i];
-			i++;
-			j++;
-			continue;
-		}
-		else if (format[i] == '%' && format[i + 1] == 'c')
-		{
-			str[j] = va_arg(args, int);
-			j++;
-			i = i + 2;
-			continue;
-		}
-		else if (format[i] == '%' && format[i + 1] == '%')
-		{
-			str[j] = '%';
-			j++;
-			i = i + 2;
-			continue;
-		}
-		else if (format[i] == '%' && format[i + 1] == 's')
-		{
-			temp = va_arg(args, char *);
-			while (temp[z])
+		case 'c':
 			{
-				str[j] = temp[z];
-				j++;
-				z++;
-				continue;
+				char c = va_arg(args, int);
+
+				putchar(c);
+				count++;
+				break;
 			}
-			i = i + 2;
-			continue;
+		case 's':
+			{
+				char *s = va_arg(args, char*);
+
+				while (*s)
+				{
+					putchar(*s++);
+					count++;
+				}
+				break;
+			}
+		case '%':
+			{
+				putchar('%');
+				count++;
+				break;
+			}
+				default:
+				break;
+			}
 		}
-	}
+		else
+		{
+			putchar(format[i]);
+			count++;
+		}
+		i++;
+		}
 	va_end(args);
-	write(1, str, j);
-	return (j);
+	return (count);
 }
 #endif
